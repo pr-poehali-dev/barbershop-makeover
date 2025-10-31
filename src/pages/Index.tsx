@@ -30,11 +30,10 @@ interface Barber {
 
 const Index = () => {
   const [materials, setMaterials] = useState<Material[]>([
-    { id: 2, name: "Ножницы парикмахерские профессиональные", description: "Инструмент для парикмахера", currentStock: 10, minStock: 5, price: 560, status: "В НАЛИЧИИ" },
+    { id: 2, name: "Ножницы парикмахерские", description: "Инструмент для парикмахера", currentStock: 10, minStock: 5, price: 560, status: "В НАЛИЧИИ" },
+    { id: 3, name: "Шампунь", description: "После окрашивания", currentStock: 50, minStock: 1, price: 700, status: "В НАЛИЧИИ" },
     { id: 6, name: "Бальзам", description: "Для волос", currentStock: 10, minStock: 1, price: 900, status: "В НАЛИЧИИ" },
-    { id: 3, name: "Шампунь", description: "После окрашивания", currentStock: 40, minStock: 1, price: 700, status: "В НАЛИЧИИ" },
-    { id: 5, name: "Гель-лак", description: "красного цвета", currentStock: 2, minStock: 2, price: 450, status: "В НАЛИЧИИ" },
-    { id: 1, name: "Перчатки", description: "Перчатки для мастеров маникюра", currentStock: 11, minStock: 10, price: 10, status: "В НАЛИЧИИ" },
+    { id: 1, name: "Перчатки", description: "Перчатки для мастеров маникюра", currentStock: 5, minStock: 10, price: 10, status: "НИЗКИЙ ЗАПАС" },
   ]);
 
   const [barbers] = useState<Barber[]>([
@@ -68,8 +67,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <main className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-foreground mb-1">Управление барбершопом</h1>
-          <p className="text-sm text-muted-foreground">Система учёта материалов и записи клиентов</p>
+          <h1 className="text-2xl font-bold text-foreground mb-1">Beauty Salon Inventory Management</h1>
+          <p className="text-sm text-muted-foreground">Система управления складом барбершопа</p>
         </div>
 
         <Tabs defaultValue="materials" className="w-full">
@@ -120,7 +119,11 @@ const Index = () => {
                         <TableCell className="text-center text-foreground">{material.minStock}</TableCell>
                         <TableCell className="text-right font-semibold text-foreground">{material.price}</TableCell>
                         <TableCell className="text-center">
-                          <span className="text-sm font-semibold text-green-700">
+                          <span className={`text-sm font-semibold ${
+                            material.status === 'НИЗКИЙ ЗАПАС' 
+                              ? 'text-red-600' 
+                              : 'text-green-700'
+                          }`}>
                             {material.status}
                           </span>
                         </TableCell>
